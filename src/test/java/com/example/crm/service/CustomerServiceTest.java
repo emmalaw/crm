@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 
 import com.example.crm.domain.dto.in.CustomerStatusInput;
-import com.example.crm.domain.dto.out.Customer;
 import com.example.crm.domain.entity.CustomerEntity;
 import com.example.crm.repository.CustomerRepository;
 import com.example.crm.util.exception.CustomerNotFoundException;
@@ -38,14 +37,14 @@ public class CustomerServiceTest {
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setVersion(1L);
         when(customerRepository.findByCustomerId(1L)).thenReturn(Optional.of(customerEntity));
-        Customer customer = customerService.findByCustomerId(1L);
+        customerService.findByCustomerId(1L);
         verify(customerMapper, times(1)).toDTO(customerEntity); 
     }
 
     @Test(expected = CustomerNotFoundException.class)
     public void testFindByCustomerId_returnException_whenEntityNotFound() throws CustomerNotFoundException {
         when(customerRepository.findByCustomerId(1L)).thenReturn(Optional.empty());
-        Customer customer = customerService.findByCustomerId(1L);
+        customerService.findByCustomerId(1L);
     }
 
     @Test(expected = InvalidCustomerStatusException.class)

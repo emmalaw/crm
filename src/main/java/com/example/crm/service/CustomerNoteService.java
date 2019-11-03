@@ -81,8 +81,9 @@ public class CustomerNoteService {
      */
     public boolean add(NoteInput note) throws CustomerNotFoundException, CustomerNoteNotFoundException {
         CustomerEntity customerEntity = findCustomerById(note.getCustomerId());
-        CustomerNoteEntity customerNoteEntity = 
-            CustomerNoteEntity.builder().note(note.getNote()).customer(customerEntity).build();
+        CustomerNoteEntity customerNoteEntity = new CustomerNoteEntity();
+        customerNoteEntity.setNote(note.getNote());
+        customerNoteEntity.setCustomer(customerEntity);
         return customerNoteRepository.save(customerNoteEntity) != null;
     }
 
